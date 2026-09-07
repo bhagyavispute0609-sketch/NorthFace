@@ -13,8 +13,11 @@ jobs:
 
       - name: Extract fullscreen Android project
         run: |
-          unzip -q NorthFace-Android-v2.1-Ultimate-Fullscreen.zip
-          cp -r extracted/NorthFace-Android-v2.1-Ultimate-Fullscreen/. northface-project/
+          unzip -q NorthFace-Android-v2.1-Ultimate-Fullscreen.zip -d extracted
+          mkdir -p northface-project
+          PROJECT_DIR=$(find extracted -mindepth 1 -maxdepth 1 -type d | head -n 1)
+          echo "Found Android project: $PROJECT_DIR"
+          cp -r "$PROJECT_DIR"/. northface-project/
       - name: Set NorthFace website URL
         run: |
           sed -i 's#https://capable-choux-e67f2b.netlify.app/#https://ubiquitous-pegasus-e8d9b0.netlify.app/#g' northface-project/app/src/main/AndroidManifest.xml
