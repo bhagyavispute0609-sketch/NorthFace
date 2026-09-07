@@ -1,0 +1,46 @@
+name: Build NorthFace APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download NorthFace project ZIP
+        uses: actions/checkout@v4
+
+      - name: Extract Android project
+        run: |
+          unzip -q NorthFace-Android-TWA.zip -d extracted
+          cp -r extracted/NorthFace-Android-TWA/. northface-project/
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK
+        run: |
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+
+      - name: Build NorthFace APK
+        working-directory: northface-project
+        run: gradle assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: NorthFace-APK
+          path: northface-project/app/build/outputs/apk/debug/app-debug.apk
