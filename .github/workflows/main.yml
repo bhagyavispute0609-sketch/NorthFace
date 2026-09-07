@@ -11,18 +11,19 @@ jobs:
       - name: Get NorthFace project
         uses: actions/checkout@v4
 
-      - name: Extract Android project
+      - name: Extract fullscreen Android project
         run: |
-          unzip -q NorthFace-Android-v1.1-Everest-Logo.zip -d extracted
+          unzip -q NorthFace-Android-v2-Fullscreen.zip -d extracted
           mkdir -p northface-project
-          cp -r extracted/NorthFace-Android-Fixed/. northface-project/
+          cp -r extracted/NorthFace-Android-v2-Fullscreen/. northface-project/
 
-      - name: Fix Android build versions
+      - name: Set NorthFace website URL
         run: |
-          sed -i "s/com.android.application' version '8.7.3'/com.android.application' version '8.10.1'/" northface-project/build.gradle
-          sed -i 's/compileSdk 35/compileSdk 36/' northface-project/app/build.gradle
+          sed -i 's#https://capable-choux-e67f2b.netlify.app/#YOUR_V7_NETLIFY_URL/#g' northface-project/app/src/main/AndroidManifest.xml
+          sed -i 's#https://capable-choux-e67f2b.netlify.app/.well-known/assetlinks.json#YOUR_V7_NETLIFY_URL/.well-known/assetlinks.json#g' northface-project/app/src/main/res/values/strings.xml
+
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -30,7 +31,7 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android SDK components
+      - name: Install Android SDK
         run: |
           yes | sdkmanager --licenses > /dev/null || true
           sdkmanager "platforms;android-36" "build-tools;36.0.0"
@@ -44,8 +45,12 @@ jobs:
         working-directory: northface-project
         run: gradle assembleDebug
 
+      - name: Print APK certificate fingerprint
+        run: |
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs northface-project/app/build/outputs/apk/debug/app-debug.apk
+
       - name: Upload NorthFace APK
         uses: actions/upload-artifact@v4
         with:
-          name: NorthFace-APK
+          name: NorthFace-APK-v2-Fullscreen
           path: northface-project/app/build/outputs/apk/debug/app-debug.apk
