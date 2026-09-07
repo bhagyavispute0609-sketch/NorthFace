@@ -15,7 +15,7 @@ jobs:
         run: |
           unzip -q NorthFace-Android-v1.1-Everest-Logo.zip -d extracted
           mkdir -p northface-project
-          cp -r extracted/NorthFace-Android-TWA/. northface-project/
+          cp -r extracted/NorthFace-Android-Fixed/. northface-project/
 
       - name: Fix Android build versions
         run: |
