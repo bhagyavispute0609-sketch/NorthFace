@@ -14,8 +14,7 @@ jobs:
       - name: Extract fullscreen Android project
         run: |
           unzip -q NorthFace-Android-v2.1-Ultimate-Fullscreen.zip
-          cp -r extracted/NorthFace-Android-v2-Fullscreen/. northface-project/
-          NorthFace-Android-v2.1-Ultimate-Fullscreen.zip
+          cp -r extracted/NorthFace-Android-v2.1-Ultimate-Fullscreen/. northface-project/
       - name: Set NorthFace website URL
         run: |
           sed -i 's#https://capable-choux-e67f2b.netlify.app/#https://ubiquitous-pegasus-e8d9b0.netlify.app/#g' northface-project/app/src/main/AndroidManifest.xml
