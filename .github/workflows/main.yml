@@ -21,19 +21,6 @@ jobs:
         run: |
           sed -i "s/com.android.application' version '8.7.3'/com.android.application' version '8.10.1'/" northface-project/build.gradle
           sed -i 's/compileSdk 35/compileSdk 36/' northface-project/app/build.gradle
-
-      - name: Fix NorthFace launcher
-        run: |
-          rm -f northface-project/app/src/main/java/com/northface/music/LauncherActivity.java
-          cat > northface-project/app/src/main/java/com/northface/music/NorthFaceLauncherActivity.java <<'EOF'
-          package com.northface.music;
-
-          import com.google.androidbrowserhelper.trusted.LauncherActivity;
-
-          public class NorthFaceLauncherActivity extends LauncherActivity {
-          }
-          EOF
-
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
