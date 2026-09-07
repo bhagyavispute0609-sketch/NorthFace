@@ -13,7 +13,7 @@ jobs:
 
       - name: Extract Android project
         run: |
-          unzip -q NorthFace-Android-TWA.zip -d extracted
+          unzip -q NorthFace-Android-v1.1-Everest-Logo.zip -d extracted
           mkdir -p northface-project
           cp -r extracted/NorthFace-Android-TWA/. northface-project/
 
