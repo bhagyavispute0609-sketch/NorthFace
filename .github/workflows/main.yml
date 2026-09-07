@@ -19,8 +19,8 @@ jobs:
 
       - name: Set NorthFace website URL
         run: |
-          sed -i 's#https://capable-choux-e67f2b.netlify.app/#YOUR_V7_NETLIFY_URL/#g' northface-project/app/src/main/AndroidManifest.xml
-          sed -i 's#https://capable-choux-e67f2b.netlify.app/.well-known/assetlinks.json#YOUR_V7_NETLIFY_URL/.well-known/assetlinks.json#g' northface-project/app/src/main/res/values/strings.xml
+          sed -i 's#https://capable-choux-e67f2b.netlify.app/#https://ubiquitous-pegasus-e8d9b0.netlify.app/#g' northface-project/app/src/main/AndroidManifest.xml
+          sed -i 's#https://capable-choux-e67f2b.netlify.app/.well-known/assetlinks.json#https://ubiquitous-pegasus-e8d9b0.netlify.app/.well-known/assetlinks.json#g' northface-project/app/src/main/res/values/strings.xml
 
       - name: Set up Java
         uses: actions/setup-java@v5
