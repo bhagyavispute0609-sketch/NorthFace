@@ -15,10 +15,10 @@ jobs:
         run: |
           unzip -q NorthFace-Android-v2.3-GracefulDragon-Verified.zip -d northface-project
 
-      - name: Show project files
+      - name: Show Android project
         run: |
-          echo "=== NorthFace Android project ==="
-          find northface-project -maxdepth 3 -type f | sort | head -150
+          echo "=== Android project files ==="
+          find northface-project -maxdepth 3 -type f | sort
 
       - name: Set up Java
         uses: actions/setup-java@v5
@@ -39,13 +39,17 @@ jobs:
         with:
           gradle-version: '8.11.1'
 
-      - name: Verify NorthFace URL
+      - name: Verify NorthFace configuration
         run: |
-          echo "Checking Android project configuration..."
-          grep -R "graceful-dragon-6f9f89.netlify.app" northface-project || true
+          echo "=== Checking website URL ==="
+          grep -R "graceful-dragon-6f9f89.netlify.app" northface-project/nf_android_v23 || true
+
+          echo "=== Checking Gradle files ==="
+          ls -la northface-project/nf_android_v23
+          ls -la northface-project/nf_android_v23/app
 
       - name: Build NorthFace release APK
-        working-directory: northface-project
+        working-directory: northface-project/nf_android_v23
         run: |
           gradle assembleRelease
 
@@ -53,14 +57,14 @@ jobs:
         run: |
           echo "=== APK CERTIFICATE ==="
           "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs \
-          northface-project/app/build/outputs/apk/release/app-release.apk
+          northface-project/nf_android_v23/app/build/outputs/apk/release/app-release.apk
 
       - name: Verify APK exists
         run: |
-          ls -lh northface-project/app/build/outputs/apk/release/app-release.apk
+          ls -lh northface-project/nf_android_v23/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload NorthFace APK
         uses: actions/upload-artifact@v4
         with:
           name: NorthFace-APK-v2.3
-          path: northface-project/app/build/outputs/apk/release/app-release.apk
+          path: northface-project/nf_android_v23/app/build/outputs/apk/release/app-release.apk
