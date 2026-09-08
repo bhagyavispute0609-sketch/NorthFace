@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.northface.music",
+      "sha256_cert_fingerprints": [
+        "C7:0C:D4:CA:B0:29:4C:13:57:3D:07:66:C2:92:A0:4E:B8:F0:DB:FC:5F:F0:3C:AB:3A:2C:E0:06:86:43:1E:B4",
+        "66:36:AB:B3:F7:4E:A1:87:8E:C6:31:AE:16:CF:A9:0D:B8:83:44:76:4C:7F:71:0E:B4:56:E9:E3:97:43:23:CC"
+      ]
+    }
+  }
+]

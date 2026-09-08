@@ -11,3 +11,6 @@ Spotify redirect URI:
 https://graceful-dragon-6f9f89.netlify.app/
 
 V16.3: Android-media-card inspired floating top player with album-art backdrop; original timeline preserved.
+
+
+Version 16.3.3: compact top media card, clean thin Spotify-style timeline, no water/flow effects.
