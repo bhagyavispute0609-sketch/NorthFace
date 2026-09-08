@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 620" preserveAspectRatio="none">
+<defs>
+ <linearGradient id="m" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#27314c" stop-opacity=".88"/><stop offset=".52" stop-color="#090b11" stop-opacity=".96"/><stop offset="1" stop-color="#010205"/></linearGradient>
+ <linearGradient id="snow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8edff" stop-opacity=".55"/><stop offset="1" stop-color="#7e8db7" stop-opacity=".05"/></linearGradient>
+</defs>
+<path fill="url(#m)" d="M0 620V540l120-80 120 45 120-105 105 72 115-88 115 72 90-110 95 100 105-48 75 52 90-78 80 54 105-92 160 110v176z"/>
+<path fill="#07090e" d="M0 620l205-118 82 35 95-128 110 82 107-117 95 105 102-150 126 145 86-100 95 87 98-127 98 92 101-72v286z"/>
+<path fill="url(#snow)" d="M495 459l107-117 95 105-49-30-31 19-31-50-37 67zm259-105l91-109 126 145-75-64-37 42-43-33zm442-7l98-91 105 110-70-52-38 30-41-44z" opacity=".72"/>
+<path fill="#020307" d="M0 590c230-35 390-18 570-47 190-31 315 6 470-20 210-36 330-20 560-46v143H0z"/>
+</svg>

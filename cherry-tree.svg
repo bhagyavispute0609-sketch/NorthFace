@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" fill="none">
+  <defs>
+    <linearGradient id="trunk" x1="600" y1="700" x2="560" y2="120" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4b3029"/><stop offset="1" stop-color="#1d1718"/>
+    </linearGradient>
+    <linearGradient id="petal" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff3f6"/><stop offset=".45" stop-color="#f7b8cf"/><stop offset="1" stop-color="#df789f"/>
+    </linearGradient>
+    <radialGradient id="glow"><stop stop-color="#ffd8e7" stop-opacity=".55"/><stop offset="1" stop-color="#ffd8e7" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse cx="760" cy="250" rx="390" ry="230" fill="url(#glow)" opacity=".45"/>
+  <path d="M550 700C545 590 520 510 535 430C548 362 555 300 575 225C590 169 580 128 560 88" stroke="url(#trunk)" stroke-width="58" stroke-linecap="round"/>
+  <path d="M558 390C500 330 426 285 332 254M570 310C645 255 716 188 770 112M550 455C470 418 386 410 300 423M579 430C674 390 770 356 887 348" stroke="#2b1e1d" stroke-width="28" stroke-linecap="round"/>
+  <g fill="url(#petal)">
+    <circle cx="320" cy="230" r="76"/><circle cx="405" cy="180" r="92"/><circle cx="500" cy="210" r="86"/><circle cx="590" cy="140" r="98"/><circle cx="700" cy="160" r="100"/><circle cx="805" cy="98" r="82"/><circle cx="900" cy="175" r="102"/><circle cx="1000" cy="205" r="74"/><circle cx="970" cy="305" r="94"/><circle cx="840" cy="285" r="95"/><circle cx="720" cy="285" r="100"/><circle cx="585" cy="300" r="92"/><circle cx="455" cy="295" r="82"/><circle cx="340" cy="330" r="72"/>
+  </g>
+  <g fill="#fff9fb" opacity=".85">
+    <circle cx="370" cy="165" r="10"/><circle cx="480" cy="245" r="9"/><circle cx="625" cy="115" r="11"/><circle cx="760" cy="185" r="10"/><circle cx="885" cy="140" r="11"/><circle cx="960" cy="265" r="9"/><circle cx="540" cy="265" r="8"/>
+  </g>
+</svg>
