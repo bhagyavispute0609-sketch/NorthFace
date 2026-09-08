@@ -38,7 +38,9 @@ jobs:
         env:
           KEYSTORE_BASE64: ${{ secrets.NORTHFACE_KEYSTORE_BASE64 }}
         run: |
-          echo "$KEYSTORE_BASE64" | base64 --decode > northface-release.keystore
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > northface-release.keystore
+          test -s northface-release.keystore
+          echo "Signing key installed successfully."
 
       - name: Configure permanent release signing
         working-directory: northface-project/nf_android_v23
@@ -55,7 +57,7 @@ jobs:
           s = s.replace(
               "signingConfig signingConfigs.debug",
               """signingConfig signingConfigs.create("northfaceRelease") {
-                  storeFile file("../../../../northface-release.keystore")
+                  storeFile file("../../northface-release.keystore")
                   storePassword System.getenv("KEYSTORE_PASSWORD")
                   keyAlias "northface-release"
                   keyPassword System.getenv("KEY_PASSWORD")
@@ -65,9 +67,18 @@ jobs:
           p.write_text(s)
           PY
 
-      - name: Verify NorthFace URL
+          echo "Signing configuration updated."
+
+      - name: Verify NorthFace configuration
         run: |
+          echo "=== Website URL ==="
           grep -R "graceful-dragon-6f9f89.netlify.app" northface-project/nf_android_v23 || true
+
+          echo "=== Signing key ==="
+          keytool -list -v \
+            -keystore northface-release.keystore \
+            -storepass "${{ secrets.NORTHFACE_KEYSTORE_PASSWORD }}" \
+            -alias northface-release | grep "SHA256:"
 
       - name: Build final signed APK
         working-directory: northface-project/nf_android_v23
