@@ -11,13 +11,14 @@ jobs:
       - name: Get NorthFace project
         uses: actions/checkout@v4
 
-      - name: Extract Android project
+      - name: Extract NorthFace Android v2.3
         run: |
-          unzip -q NorthFace-Android-v2.2-GracefulDragon-Fullscreen.zip -d northface-project
+          unzip -q NorthFace-Android-v2.3-GracefulDragon-Verified.zip -d northface-project
 
       - name: Show project files
         run: |
-          find northface-project -maxdepth 2 -type f | sort | head -100
+          echo "=== NorthFace Android project ==="
+          find northface-project -maxdepth 3 -type f | sort | head -150
 
       - name: Set up Java
         uses: actions/setup-java@v5
@@ -38,17 +39,28 @@ jobs:
         with:
           gradle-version: '8.11.1'
 
+      - name: Verify NorthFace URL
+        run: |
+          echo "Checking Android project configuration..."
+          grep -R "graceful-dragon-6f9f89.netlify.app" northface-project || true
+
       - name: Build NorthFace release APK
         working-directory: northface-project
-        run: gradle assembleRelease
+        run: |
+          gradle assembleRelease
 
       - name: Print APK certificate fingerprint
         run: |
+          echo "=== APK CERTIFICATE ==="
           "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs \
           northface-project/app/build/outputs/apk/release/app-release.apk
+
+      - name: Verify APK exists
+        run: |
+          ls -lh northface-project/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload NorthFace APK
         uses: actions/upload-artifact@v4
         with:
-          name: NorthFace-APK-v2.2
+          name: NorthFace-APK-v2.3
           path: northface-project/app/build/outputs/apk/release/app-release.apk
