@@ -11,17 +11,13 @@ jobs:
       - name: Get NorthFace project
         uses: actions/checkout@v4
 
-      - name: Extract fullscreen Android project
+      - name: Extract Android project
         run: |
-          unzip -q NorthFace-Android-v2.1-Ultimate-Fullscreen.zip -d extracted
-          mkdir -p northface-project
-          PROJECT_DIR=$(find extracted -mindepth 1 -maxdepth 1 -type d | head -n 1)
-          echo "Found Android project: $PROJECT_DIR"
-          cp -r "$PROJECT_DIR"/. northface-project/
-      - name: Set NorthFace website URL
+          unzip -q NorthFace-Android-v2.2-GracefulDragon-Fullscreen.zip -d northface-project
+
+      - name: Show project files
         run: |
-          sed -i 's#https://capable-choux-e67f2b.netlify.app/#https://ubiquitous-pegasus-e8d9b0.netlify.app/#g' northface-project/app/src/main/AndroidManifest.xml
-          sed -i 's#https://capable-choux-e67f2b.netlify.app/.well-known/assetlinks.json#https://ubiquitous-pegasus-e8d9b0.netlify.app/.well-known/assetlinks.json#g' northface-project/app/src/main/res/values/strings.xml
+          find northface-project -maxdepth 2 -type f | sort | head -100
 
       - name: Set up Java
         uses: actions/setup-java@v5
@@ -42,16 +38,17 @@ jobs:
         with:
           gradle-version: '8.11.1'
 
-      - name: Build NorthFace
+      - name: Build NorthFace release APK
         working-directory: northface-project
-        run: gradle assembleDebug
+        run: gradle assembleRelease
 
       - name: Print APK certificate fingerprint
         run: |
-          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs northface-project/app/build/outputs/apk/debug/app-debug.apk
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs \
+          northface-project/app/build/outputs/apk/release/app-release.apk
 
       - name: Upload NorthFace APK
         uses: actions/upload-artifact@v4
         with:
-          name: NorthFace-APK-v2.1-Ultimate-Fullscreen
-          path: northface-project/app/build/outputs/apk/debug/app-debug.apk
+          name: NorthFace-APK-v2.2
+          path: northface-project/app/build/outputs/apk/release/app-release.apk
