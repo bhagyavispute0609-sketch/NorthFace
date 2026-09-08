@@ -57,7 +57,7 @@ jobs:
           s = s.replace(
               "signingConfig signingConfigs.debug",
               """signingConfig signingConfigs.create("northfaceRelease") {
-                  storeFile file("../../northface-release.keystore")
+                  storeFile file("../../../northface-release.keystore")
                   storePassword System.getenv("KEYSTORE_PASSWORD")
                   keyAlias "northface-release"
                   keyPassword System.getenv("KEY_PASSWORD")
